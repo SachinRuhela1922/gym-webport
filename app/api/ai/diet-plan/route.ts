@@ -3,7 +3,14 @@ import { openai } from '@ai-sdk/openai'
 
 export async function POST(req: Request) {
   try {
-    const { age, weight, height, goal, dietPreference, restrictions } = await req.json()
+    const {
+      age,
+      weight,
+      height,
+      goal,
+      dietPreference,
+      restrictions,
+    } = await req.json()
 
     const prompt = `You are a professional nutritionist and fitness coach. Generate a personalized meal plan based on the following information:
 
@@ -28,12 +35,23 @@ Make the plan practical, achievable, and aligned with the person's lifestyle and
       model: openai('gpt-4o-mini'),
       prompt,
       temperature: 0.7,
-      maxTokens: 2000,
+      maxOutputTokens: 2000,
     })
 
-    return (await result).toDataStreamResponse()
+    return result.toUIMessageStreamResponse()
   } catch (error) {
     console.error('Error generating diet plan:', error)
-    return new Response('Error generating diet plan', { status: 500 })
+
+    return new Response(
+      JSON.stringify({
+        error: 'Error generating diet plan',
+      }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
   }
 }
