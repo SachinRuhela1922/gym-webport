@@ -5,7 +5,11 @@ import { useFrame } from '@react-three/fiber'
 import { Float } from '@react-three/drei'
 import * as THREE from 'three'
 
-function Dumbbell({ position = [0, 0, 0] }) {
+type Props = {
+  position?: [number, number, number]
+}
+
+function Dumbbell({ position = [0, 0, 0] }: Props) {
   const groupRef = useRef<THREE.Group>(null)
 
   useFrame(() => {
@@ -22,11 +26,13 @@ function Dumbbell({ position = [0, 0, 0] }) {
           <cylinderGeometry args={[0.5, 0.5, 0.4, 32]} />
           <meshStandardMaterial color="#DC2626" metalness={0.9} roughness={0.1} />
         </mesh>
+
         {/* Center bar */}
-        <mesh position={[0, 0, 0]}>
+        <mesh rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[0.15, 0.15, 2.5, 32]} />
           <meshStandardMaterial color="#A3A3A3" metalness={1} roughness={0.05} />
         </mesh>
+
         {/* Right weight */}
         <mesh position={[1.5, 0, 0]}>
           <cylinderGeometry args={[0.5, 0.5, 0.4, 32]} />
@@ -37,7 +43,7 @@ function Dumbbell({ position = [0, 0, 0] }) {
   )
 }
 
-function Barbell({ position = [0, 0, 0] }) {
+function Barbell({ position = [0, 0, 0] }: Props) {
   const groupRef = useRef<THREE.Group>(null)
 
   useFrame(() => {
@@ -54,20 +60,24 @@ function Barbell({ position = [0, 0, 0] }) {
           <cylinderGeometry args={[0.7, 0.7, 0.2, 32]} />
           <meshStandardMaterial color="#1F2937" metalness={0.8} roughness={0.2} />
         </mesh>
+
         <mesh position={[-1.5, 0, 0]}>
           <cylinderGeometry args={[0.6, 0.6, 0.2, 32]} />
           <meshStandardMaterial color="#374151" metalness={0.8} roughness={0.2} />
         </mesh>
+
         {/* Bar */}
-        <mesh position={[0, 0, 0]}>
+        <mesh rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[0.2, 0.2, 3, 32]} />
           <meshStandardMaterial color="#8B5CF6" metalness={1} roughness={0.05} />
         </mesh>
+
         {/* Right plates */}
         <mesh position={[1.5, 0, 0]}>
           <cylinderGeometry args={[0.6, 0.6, 0.2, 32]} />
           <meshStandardMaterial color="#374151" metalness={0.8} roughness={0.2} />
         </mesh>
+
         <mesh position={[2, 0, 0]}>
           <cylinderGeometry args={[0.7, 0.7, 0.2, 32]} />
           <meshStandardMaterial color="#1F2937" metalness={0.8} roughness={0.2} />
@@ -77,7 +87,7 @@ function Barbell({ position = [0, 0, 0] }) {
   )
 }
 
-function Kettlebell({ position = [0, 0, 0] }) {
+function Kettlebell({ position = [0, 0, 0] }: Props) {
   const meshRef = useRef<THREE.Mesh>(null)
 
   useFrame(() => {
@@ -90,12 +100,13 @@ function Kettlebell({ position = [0, 0, 0] }) {
     <Float speed={2.5} rotationIntensity={0.6} floatIntensity={1.2}>
       <group position={position}>
         {/* Body */}
-        <mesh ref={meshRef} position={[0, 0, 0]}>
+        <mesh ref={meshRef}>
           <sphereGeometry args={[0.6, 32, 32]} />
           <meshStandardMaterial color="#F59E0B" metalness={0.8} roughness={0.15} />
         </mesh>
+
         {/* Handle */}
-        <mesh position={[0, 1.2, 0]}>
+        <mesh position={[0, 0.8, 0]}>
           <torusGeometry args={[0.4, 0.12, 16, 100]} />
           <meshStandardMaterial color="#D97706" metalness={0.8} roughness={0.2} />
         </mesh>

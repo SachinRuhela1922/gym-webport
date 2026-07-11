@@ -35,7 +35,7 @@ function CounterText({ number, label, position }: { number: string; label: strin
     <Float speed={2} rotationIntensity={0.1} floatIntensity={0.5} position={position}>
       <group>
         <Text
-          font="/fonts/Geist_Bold.json"
+          
           fontSize={1.5}
           color="#8B5CF6"
           anchorX="center"
@@ -45,7 +45,7 @@ function CounterText({ number, label, position }: { number: string; label: strin
           {number}
         </Text>
         <Text
-          font="/fonts/Geist_Regular.json"
+          
           fontSize={0.5}
           color="#06B6D4"
           anchorX="center"
